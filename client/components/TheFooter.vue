@@ -8,7 +8,7 @@
                     <span class="phoneText">Phone : +90 000 000 0000</span>
                     <span>help@udemyshop.com</span>
                     <br>
-                    <div style="display:flex; flex-direction:row; margin-top:20px;">
+                    <div style="display:flex; flex-direction:row; margin-top:20px; height:20px">
                         <img class="imgInstagram" src="../src/images/social/facebook.png">
                         <img class="imgInstagram" src="../src/images/social/instagram.png">
                         <img class="imgInstagram" src="../src/images/social/twitter.png">
@@ -83,16 +83,12 @@ export default {
     h3{
         font-size: 22px;
     }
-    img{
-        height: 15px;
-        overflow: hidden;
-        width: auto;
-        object-fit: contain;
-        margin-right: 10px;
-    }
     .imgInstagram{
-        width: 68px;
-        height: 60px;
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        object-fit: cover;
+        margin-right: 10px;
     }
     .rowTwo{
         padding: 20px;
