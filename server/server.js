@@ -5,15 +5,21 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+const productRoutes = require("./routes/product")
+const userMethods = require("./routes/authentication")
 
 const app = express();
+
 app.use(cors())
-app.use(morgan)
+app.use(morgan("dev"))
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 /*app.use(bodyParser.urlencoded({extends:false}))
 app.use(bodyParser.json())*/
 
+app.use("/api",productRoutes)
+app.use("/api",userMethods)
 
 dotenv.config();
 
