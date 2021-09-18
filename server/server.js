@@ -13,10 +13,10 @@ const app = express();
 app.use(cors())
 app.use(morgan("dev"))
 
+//app.use(bodyParser.json())
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-/*app.use(bodyParser.urlencoded({extends:false}))
-app.use(bodyParser.json())*/
+//app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 
 app.use("/api",productRoutes)
 app.use("/api",userMethods)

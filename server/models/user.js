@@ -14,31 +14,39 @@ const UserSchema = new Schema({
         required: true,
     },
     phone: Number,
-    adress: String
+    address: String
 })
 
 UserSchema.pre("save",function(next){
+    
     let user = this;
+
+    console.log("this:",this)
+    
     if(this.isModified("password") || this.isNew){
+        
         bcrypt.genSalt(10,function(err,salt){
+            
             if(err){
                 return next(err)
             }
+            
+            bcrypt.hash(user.password,salt,function(err,hash){
+                
+                if(err){
+                    return next(err)
+                }
+
+                user.password = hash
+                next();
+
+            })
+
         })
-        bcrypt.hash(user.password,salt,null,function(err,hash){
-            if(err){
-                return next(err)
-            }
-            user.password = hash
-        })
+        
     }else{
         return next()
     }
 })
-
-UserSchema.methods.comparePassword = function(password,next){
-    let user = this;
-    return bcrypt.compareSync(password,user.password)
-}
 
 module.exports = mongoose.model("User",UserSchema)

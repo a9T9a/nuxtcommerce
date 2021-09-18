@@ -1,10 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'ecommerceproject',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    title: 'admin',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -20,7 +17,7 @@ export default {
   css: [
   ],
 
-  router: {
+  routes:{
 
   },
 
@@ -39,14 +36,32 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    // https://go.nuxtjs.dev/axios
+    '@nuxtjs/axios',
+    // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/pwa',
+    // https://go.nuxtjs.dev/content
+    '@nuxt/content',
   ],
 
-  axios: {
-    // proxyHeaders: false
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {},
+
+  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  pwa: {
+    manifest: {
+      lang: 'en'
+    }
   },
+
+  // Content module configuration: https://go.nuxtjs.dev/config-content
+  content: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  server:{
+    port:8000
+  },
 }

@@ -2,18 +2,16 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 
-const Category = new Schema({
-    main:String,
-    sub:String
-})
-
 const ProductSchema = new Schema({
     title:String,
     price:Number,
     stockNumber:Number,
+    summary:String,
+    features:Array,
     description:Array,
     photo:Array,
-    category:[Category]
+    mainCategory:String,
+    subCategory:String
 })
 
 
