@@ -81,7 +81,7 @@
                 </b-form-group>
             
             </b-form-group>
-            <b-button varian="light" size="lg" class="px-5 float-right" @click="createProduct" :disabled="!allValueValid">Save</b-button>
+            <b-button variant="dark" size="lg" class="px-5 float-right" @click="createProduct" :disabled="!allValueValid">Save</b-button>
         </b-card>
     </div>
 </template>
