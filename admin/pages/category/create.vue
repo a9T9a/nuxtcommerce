@@ -8,9 +8,9 @@
              label-class="font-weight-bold pt-0"
             >
                 <b-form-group
-                label-cols-sm="3"
-                label="Category Name"
-                label-align-sm="right"
+                 label-cols-sm="3"
+                 label="Category Name"
+                 label-align-sm="right"
                 >
                     <b-form-input v-model="mainCategory"></b-form-input>
                     <b-button variant="dark" size="lg" class="px-5 float-right mt-3" @click="createMainCategory">Add</b-button>
@@ -65,7 +65,6 @@
                 categories:[],
                 mainCategory:null,
                 selectedMainCategory:null,
-                mainCategoryList:[],
                 subCategory:null,
             }
         },
@@ -94,6 +93,15 @@
     
                 let result = await this.$axios.$post("http://localhost:8080/api/category", newCategory)
                 console.log(result)
+                if(result){
+                    let obj = {
+                        ...result.category,
+                        subCategory:[],
+                        index:this.categories.length   
+                    }
+                    this.categories.push(obj)
+                    console.log("list",this.categories)
+                }
     
             },
     
@@ -114,7 +122,7 @@
                     })
                 });
                 this.categories=list
-                console.log("catehories-getAllCategories",this.categories)
+                console.log("categories-getAllCategories",this.categories)
                 
             }
 

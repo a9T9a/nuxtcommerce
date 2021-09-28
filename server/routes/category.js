@@ -2,6 +2,7 @@ const router = require("express").Router()
 const Category = require("../models/category")
 
 router.post("/category", async (req,res)=>{
+    
     try {
         
         let category = new Category()
@@ -17,28 +18,36 @@ router.post("/category", async (req,res)=>{
         })
 
     } catch (error) {
+
         res.status(500).json({
             success:false,
             message:error.message
         })
+
     }
+
 })
 
 router.get("/category", async (req,res)=>{
+
     try {
 
         let category = await Category.find({})
         res.send(category)
 
     } catch (error) {
+    
         res.status(500).json({
             success:false,
             message:error.message
+    
         })
+    
     }
 })
 
 router.post("/category/:id", async (req,res)=>{
+   
     try {
         
         let category = await Category.findOne({_id:req.params.id})
@@ -52,11 +61,59 @@ router.post("/category/:id", async (req,res)=>{
         })
 
     } catch (error) {
+   
+        res.status(500).json({
+            success:false,
+            message:error.message
+   
+        })
+    }
+
+})
+
+router.delete("/category/:id", async (req,res)=>{
+    
+    try {
+    
+        await Category.findOneAndDelete({_id:req.params.id})
+        
+        res.json({
+            success:true,
+            message:"Main category deleted..."
+        })
+
+    } catch (error) {
+        
+        res.status(500).json({
+            success:false,
+            message: error.message
+        })
+
+    }
+
+})
+
+router.put("/category/:id", async (req,res)=>{
+
+    try {
+        
+        let category = await Category.updateOne({"_id":req.params.id}, {$pull: {"subCategory":req.body.subCategory}})
+
+        res.json({
+            success:true,
+            updatedCategory: category,
+            message:"Category updated..."
+        })
+
+    } catch (error) {
+        
         res.status(500).json({
             success:false,
             message:error.message
         })
+
     }
+
 })
 
 module.exports = router

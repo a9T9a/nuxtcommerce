@@ -69,7 +69,12 @@
                     label-cols-sm="3"
                     label-align-sm="right"
                 >
-                    <b-form-select v-model="mainCategory" :options="mainOptions"></b-form-select>
+                    <b-form-select
+                     v-model="mainCategory"
+                     :options="mainOptions"
+                     text-field="title"
+                     value-field="index"
+                    ></b-form-select>
                 </b-form-group>
 
                 <b-form-group
@@ -77,7 +82,10 @@
                     label-cols-sm="3"
                     label-align-sm="right"
                 >
-                    <b-form-select v-model="subCategory" :options="subOptions"></b-form-select>
+                    <b-form-select
+                     v-model="subCategory"
+                     :options="getSubCategory" 
+                    ></b-form-select>
                 </b-form-group>
             
             </b-form-group>
@@ -99,42 +107,17 @@
                 description:null,
                 photo:null,
                 mainCategory:null,
-                mainOptions: [
-                    { value: null, text: 'Please select a main category', disabled: true},
-                    { value: 'A', text: 'A' },
-                    { value: 'B', text: 'B' },
-                    { value: "C", text: 'C' },
-                ],
+                mainOptions: [],
                 subCategory:null,
             }
         },
 
         computed:{
-            subOptions(){
-                if(this.mainCategory === "A"){
-                    let sub = [
-                        {value:null, text:"Please select a sub category", disabled: true},
-                        {value:"1", text:"1"},
-                        {value:"2", text:"2"},
-                        {value:"3", text:"3"},
-                        {value:"4", text:"4"},
-                    ]
-                    return sub
-                }else if(this.mainCategory === "B"){
-                    let sub = [
-                        {value:null, text:"Please select a sub category", disabled: true},
-                        {value:"5", text:"5"},
-                        {value:"6", text:"6"},
-                        {value:"7", text:"7"},
-                    ]
-                    return sub
-                }else if(this.mainCategory === "C"){
-                    let sub = [
-                        {value:null, text:"Please select a sub category", disabled: true},
-                        {value:"8", text:"8"},
-                        {value:"9", text:"9"},
-                    ]
-                    return sub
+            getSubCategory(){
+                if(this.mainCategory!=null){
+                    return this.mainOptions[this.mainCategory].subCategory
+                }else{
+                    return []
                 }
             },
 
@@ -158,7 +141,12 @@
 
         },
 
+        mounted() {
+            this.getAllCategories()
+        },
+
         methods: {
+
             async createProduct(){
                 let newProduct={
                     title: this.title,
@@ -180,7 +168,23 @@
                 } catch (error) {
                     console.log(error.response.data)
                 }
+            },
+
+            async getAllCategories(){
+                let result = await this.$axios.$get("http://localhost:8080/api/category")
+                
+                let list=[]
+                result.forEach((item,index) => {
+                    list.push({
+                        ...item,
+                        index:index
+                    })
+                });
+                this.mainOptions=list
+                console.log("categories-getAllCategories",this.mainOptions)
+                
             }
+
         },
 
     }

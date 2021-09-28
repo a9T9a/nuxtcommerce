@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="layout">
         <the-navbar/>
         <nuxt/>
     </div>
@@ -17,5 +17,7 @@ import TheNavbar from "../components/TheNavbar.vue"
 </script>
 
 <style scoped>
-
+    #layout{
+        background-color: whitesmoke;
+    }
 </style>
